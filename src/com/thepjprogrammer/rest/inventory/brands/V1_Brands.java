@@ -1,4 +1,4 @@
-package com.thepjprogrammer.rest.inventory.products;
+package com.thepjprogrammer.rest.inventory.brands;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -9,17 +9,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 
-@Path("/v1/inventory/products") 
-public class V1_Products {
+@Path("/v1/inventory/brands") 
+public class V1_Brands {
 
 	@GET
-	@Path("{productId}")
+	@Path("{brandId}")
 	@Produces(MediaType.TEXT_HTML)
-	public String returnName(@PathParam("productId") int productId) {
+	public String returnName(@PathParam("brandId") int brandId) {
 		
-		String sqlQuery = "select * from products where id = "+productId;
+		String sqlQuery = "select * from brands where id = "+brandId;
 		ResultSet productResults = null;
-		String selectedProductName = "";
+		String selectedBrandName = "";
 		
 		try
 		{
@@ -27,14 +27,14 @@ public class V1_Products {
 			productResults = MySQLConnectionManager.runQuery(sqlQuery, dbConnection);
 			while(productResults.next())
 			{
-				selectedProductName = productResults.getString("name");
+				selectedBrandName = productResults.getString("name");
 			}
 		}
 		catch(Exception e){
 			System.out.println("An error occurred");
 		}
 		
-		return "<p>"+selectedProductName+"</p>";
+		return "<p>"+selectedBrandName+"</p>";
 	}
 	
 }
